@@ -1,0 +1,36 @@
+services:
+  frontend:
+    build:
+      context: ../front_end/quizine
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ../front_end/quizine:/app
+      - /app/node_modules
+    networks:
+      - quizine-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ../backend:/app
+      - /app/node_modules
+    networks:
+      - quizine-network
+    restart: unless-stopped
+
+networks:
+  quizine-network:
+    driver: bridge
