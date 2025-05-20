@@ -1,7 +1,7 @@
 services:
   frontend:
     build:
-      context: ../front_end/quizine
+      context: ../front_end/
       dockerfile: Dockerfile
     ports:
       - "4200:80"
@@ -10,7 +10,7 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - ../front_end/quizine:/app
+      - ../front_end:/app
       - /app/node_modules
     networks:
       - quizine-network
